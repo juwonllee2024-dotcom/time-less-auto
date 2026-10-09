@@ -1,3 +1,37 @@
+<!-- JUWON-PORTFOLIO-INTRO:START -->
+# Time Less Auto
+
+![Time Less Auto — portfolio visual](docs/portfolio-preview.jpg)
+
+*Recorded standalone extension-panel preview; extension installation and repeated provider tasks not exercised.*
+
+*기존 확장 패널 단독 미리보기 · 브라우저 확장 설치·반복 작업 미실행*
+
+## English
+
+A Chrome extension for coordinating selected AI-provider tabs, verifying responses, capturing response cards, and assembling reviewable output packages.
+
+[View JUWON's portfolio](https://jupt.pages.dev/) · [Browse the project collection](https://jupt.pages.dev/projects)
+
+**Scope:** This README presents the repository's documented intent and recorded visual evidence. It does not certify that every feature is complete, deployed, or currently working. Follow the original setup, safety, and license documentation below.
+
+This repository is a selected original-source snapshot. The recorded source fingerprint describes the initial publication; this portfolio introduction was added afterward. Original technical documentation is preserved below.
+
+## 한국어
+
+AI 응답 화면 캡처와 반복 작업을 처리하는 Chrome 확장.
+
+[JUWON 포트폴리오 보기](https://jupt.pages.dev/) · [전체 프로젝트 보기](https://jupt.pages.dev/projects)
+
+**확인 범위:** 저장소의 문서상 목적과 기록된 화면 근거를 소개합니다. 모든 기능의 완성·배포·현재 정상 작동을 보증하지 않습니다. 설치법·안전 주의사항·라이선스는 아래 기존 문서를 확인하세요.
+
+선택된 원본 소스의 공개 스냅샷입니다. 기록된 소스 지문은 최초 공개 시점을 나타내며, 이 포트폴리오 소개는 이후 추가했습니다. 기존 기술 문서는 아래에 보존했습니다.
+<!-- JUWON-PORTFOLIO-INTRO:END -->
+
+---
+
+## Original documentation / 기존 문서
+
 # Time Less Auto 2.0.0
 
 유튜브 쇼츠용 **Project Auto-Builder**이자 완전 자동 제어탑입니다. `무인도` 같은 키워드 하나만 넣으면 새 ChatGPT 설계 탭을 열고, 웹 AI가 역할·role guidance·장면·예상 턴·최대 턴·감정 아크·종료조건을 만든 뒤 역할 수만큼 새 ChatGPT 탭을 열어 대화·실제 캡처·ZIP까지 진행합니다.
