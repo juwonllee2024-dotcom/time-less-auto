@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Time Less Auto · YouTube</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <main id="appShell" class="app-shell" data-surface="youtube-creator" data-ui-phase="design">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-row">
+          <img class="brand-logo" src="icon128.png" alt="Time Less Auto logo">
+          <span class="brand">TIME LESS AUTO</span>
+        </div>
+        <p class="brand-subtitle">실제 AI 화면으로 YouTube Shorts 만들기</p>
+      </div>
+      <div class="status-wrap">
+        <span id="meetingStatus" class="status-badge" data-status="READY">준비됨</span>
+      </div>
+    </header>
+
+    <nav id="progressRail" class="progress-rail" aria-label="제작 단계">
+      <div class="progress-step" data-step="design" data-state="active" aria-current="step">
+        <span class="progress-number">1</span>
+        <span class="progress-copy"><strong>설계</strong><small>프로젝트·역할</small></span>
+      </div>
+      <div class="progress-line" aria-hidden="true"></div>
+      <div class="progress-step" data-step="run" data-state="upcoming">
+        <span class="progress-number">2</span>
+        <span class="progress-copy"><strong>진행</strong><small>AI 대화·캡처</small></span>
+      </div>
+      <div class="progress-line" aria-hidden="true"></div>
+      <div class="progress-step" data-step="output" data-state="upcoming">
+        <span class="progress-number">3</span>
+        <span class="progress-copy"><strong>결과</strong><small>PNG·ZIP</small></span>
+      </div>
+    </nav>
+
+    <section id="focusCard" class="focus-card" aria-live="polite">
+      <div class="focus-copy">
+        <span class="focus-kicker">지금 할 일</span>
+        <h1 id="focusTitle">프로젝트를 정하세요</h1>
+        <p id="focusMessage">키워드와 AI 탭을 정하면 장면 설계를 시작할 수 있어요.</p>
+      </div>
+      <button id="focusAction" class="primary-button focus-action" type="button">자동 설계 시작</button>
+    </section>
+
+    <section id="designWorkspace" class="workspace-card creator-card project-card autopilot-card" aria-labelledby="designHeading" data-current="true">
+      <div class="workspace-header section-heading compact">
+        <div>
+          <span class="eyebrow">01 · 설계</span>
+          <h2 id="designHeading">프로젝트 만들기</h2>
+        </div>
+        <span id="autopilotPhase" class="autopilot-phase">대기</span>
+      </div>
+
+      <div class="workspace-content">
+        <label class="field-label" for="projectKeyword">무엇을 만들까요?</label>
+        <div class="project-input-row">
+          <input id="projectKeyword" class="project-keyword" type="text" maxlength="80" placeholder="예: 무인도">
+          <button id="buildProject" class="secondary-button" type="button">장면표 보기</button>
+        </div>
+        <p class="field-hint">한 단어를 장면·역할·턴·감정이 있는 Shorts 프로젝트로 확장합니다.</p>
+
+        <details id="manualTabSetup" class="inline-drawer compact-drawer">
+          <summary><span>직접 탭 연결 (선택)</span><span class="drawer-summary-hint">자동 모드에서는 필요 없음</span></summary>
+          <div class="inline-drawer-content">
+            <div class="design-tools">
+              <label class="tool-field" for="plannerTab">
+                <span class="field-label">수동 설계 AI</span>
+                <select id="plannerTab" class="planner-tab" aria-label="프로젝트 설계 AI 탭">
+                  <option value="">AI 탭 선택</option>
+                </select>
+              </label>
+              <button id="openAiTabs" class="secondary-button tool-button" type="button">AI 탭 열기</button>
+            </div>
+            <div id="aiProviderChoices" class="ai-provider-choices" role="group" aria-label="열 AI 선택">
+              <label class="ai-provider-option"><input type="checkbox" value="chatgpt"><span>ChatGPT</span></label>
+              <label class="ai-provider-option"><input type="checkbox" value="claude"><span>Claude</span></label>
+              <label class="ai-provider-option"><input type="checkbox" value="gemini"><span>Gemini</span></label>
+              <label class="ai-provider-option"><input type="checkbox" value="copilot"><span>Copilot</span></label>
+            </div>
+            <p class="field-hint">기존 AI 탭을 직접 연결하고 싶을 때만 사용하세요. 새 대화 탭과 역할을 자동으로 만들려면 기본 자동 모드를 사용하세요.</p>
+          </div>
+        </details>
+
+        <details id="roleSetup" class="inline-drawer" open>
+          <summary><span>AI와 역할 설정</span><span id="participantCount" class="count-label">2명</span></summary>
+          <div class="inline-drawer-content">
+            <div class="drawer-toolbar">
+              <span class="drawer-hint">각 AI의 역할과 말투를 정하세요.</span>
+              <button id="refreshTabs" class="quiet-button" type="button" title="열린 AI 탭 새로고침">탭 새로고침</button>
+            </div>
+            <div id="participants" class="participants-grid" aria-live="polite"></div>
+            <button id="addParticipant" class="add-character" type="button"><span aria-hidden="true">＋</span> 역할 추가</button>
+          </div>
+        </details>
+
+        <div id="projectPlan" class="project-plan" hidden>
+          <div class="plan-heading">
+            <div>
+              <span class="field-label">장면 미리보기</span>
+              <div id="projectSummary" class="project-summary"></div>
+            </div>
+            <span id="projectApproval" class="approval-badge">설계 필요</span>
+          </div>
+          <div id="sceneList" class="scene-list" aria-live="polite"></div>
+          <button id="approveProjectRun" class="primary-button approval-button" type="button" disabled>이 설계로 실행 승인</button>
+        </div>
+
+        <details id="autopilotDetails" class="inline-drawer compact-drawer">
+          <summary><span>자동 설계 진행 상세</span><span class="drawer-summary-hint">필요할 때만 보기</span></summary>
+          <div class="inline-drawer-content">
+            <div class="autopilot-actions">
+              <button id="startAutopilot" class="primary-button" type="button">자동 설계·실행</button>
+              <button id="pauseAutopilot" class="secondary-button" type="button">일시정지</button>
+              <button id="retryAutopilot" class="secondary-button" type="button">실패 단계 다시 시도</button>
+              <button id="stopAutopilot" class="text-button danger" type="button">긴급 중지</button>
+              <button id="resetAutopilot" class="text-button" type="button">초기화</button>
+            </div>
+            <div id="autopilotSummary" class="autopilot-summary" aria-live="polite"></div>
+            <div id="autopilotTimeline" class="autopilot-timeline" aria-live="polite"></div>
+            <div id="autopilotProviders" class="autopilot-providers" aria-live="polite"></div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="conversationWorkspace" class="workspace-card creator-card run-card live-card" aria-labelledby="conversationHeading" data-current="false">
+      <div class="workspace-header section-heading compact">
+        <div>
+          <span class="eyebrow">02 · 진행</span>
+          <h2 id="conversationHeading">장면 진행</h2>
+        </div>
+        <div class="workspace-metrics">
+          <span id="sceneProgress" class="scene-progress"></span>
+          <span id="turnCounter" class="count-label">0회</span>
+        </div>
+      </div>
+
+      <div class="workspace-content">
+        <div class="scene-now">
+          <div>
+            <span class="scene-now-label">현재 장면</span>
+            <strong id="liveHeading">대화 준비 중</strong>
+          </div>
+          <span id="modeHint" class="mode-hint" aria-live="polite"></span>
+        </div>
+
+        <div class="conversation-setup">
+          <label class="title-field" for="meetingTitle">
+            <span class="field-label">장면 이름</span>
+            <input id="meetingTitle" class="scene-title" value="새 쇼츠 장면" maxlength="100" placeholder="예: 기숙사 복도에서 첫 만남">
+          </label>
+          <div id="interactionMode" class="mode-selector" role="group" aria-label="장면 진행 방식">
+            <button id="interactiveMode" type="button" aria-pressed="true">직접 진행</button>
+            <button id="autonomousMode" type="button" aria-pressed="false">자동 진행</button>
+          </div>
+        </div>
+
+        <label class="field-label" for="composer">장면에 무슨 일이 일어나나요?</label>
+        <div class="idea-input-wrap">
+          <textarea id="composer" rows="3" placeholder="상황과 감정을 적어주세요…"></textarea>
+          <button id="sendUserMessage" class="send-button" type="button" title="장면에 추가" aria-label="장면에 추가">↑</button>
+        </div>
+        <p class="field-hint">직접 진행에서는 내 말을 넣고, 자동 진행에서는 AI들이 장면을 이어갑니다.</p>
+
+        <div class="run-actions">
+          <button id="startMeeting" class="primary-button" type="button">장면 시작</button>
+          <button id="pauseMeeting" class="secondary-button" type="button">일시정지</button>
+          <button id="joinConversation" class="secondary-button" type="button" hidden>직접 말하기</button>
+          <button id="endMeeting" class="text-button danger" type="button">종료</button>
+        </div>
+        <div id="uiNotice" class="ui-notice" aria-live="polite"></div>
+
+        <section id="attentionStrip" class="attention-card" hidden aria-labelledby="attentionTitle">
+          <div class="attention-copy">
+            <strong id="attentionTitle">잠시 확인이 필요해요</strong>
+            <span id="attentionMessage">아래에서 다음 행동을 선택하세요.</span>
+          </div>
+          <div class="recovery-actions">
+            <button id="retryTransaction" type="button">다시 시도</button>
+            <button id="reconnectParticipant" type="button">AI 다시 연결</button>
+            <button id="skipParticipant" type="button">건너뛰기</button>
+          </div>
+        </section>
+
+        <div id="transcript" class="transcript" aria-live="polite">
+          <div class="empty-state">
+            <div class="empty-icon" aria-hidden="true">✦</div>
+            <strong>아직 시작하지 않았어요.</strong>
+            <span>설계를 승인한 뒤 장면을 시작하세요.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="outputWorkspace" class="workspace-card creator-card captures-card" aria-labelledby="outputHeading" data-current="false">
+      <div class="workspace-header section-heading compact">
+        <div>
+          <span class="eyebrow">03 · 결과</span>
+          <h2 id="outputHeading">캡처와 ZIP</h2>
+        </div>
+        <span id="captureSummary" class="capture-summary">아직 없음</span>
+      </div>
+      <div class="workspace-content">
+        <div id="artifactCard" class="artifact-card" hidden></div>
+        <div id="captureList" class="capture-list" aria-live="polite">
+          <div class="capture-empty">장면이 진행되면 실제 AI 응답 카드가 PNG로 저장됩니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <details id="advancedPanel" class="drawer advanced-panel">
+      <summary>설정·복구<span aria-hidden="true">⌄</span></summary>
+      <div class="drawer-body controls-grid">
+        <label>최대 전체 턴 수
+          <input id="maxTurns" type="number" min="0" value="20">
+          <small>0 = 제한 없음</small>
+        </label>
+        <label>AI 사이 간격
+          <div class="inline-field"><input id="delaySeconds" type="number" min="0" step="0.5" value="4"><span>초</span></div>
+        </label>
+        <label>응답 재시도 횟수
+          <input id="retryLimit" type="number" min="0" max="5" value="3">
+        </label>
+        <label>응답 기다리는 시간
+          <div class="inline-field"><input id="responseTimeout" type="number" min="30" step="10" value="120"><span>초</span></div>
+        </label>
+        <label>세션 방식
+          <select id="sessionTemplate" class="control-select" aria-label="세션 방식"></select>
+          <small id="sessionPhaseHint">자유 장면 · 대기</small>
+        </label>
+        <label class="switch-row"><span><strong>스마트 다음 AI 선택</strong><small>대화 흐름에 맞춰 선택</small></span><input id="smartRouting" type="checkbox" checked></label>
+        <label class="switch-row"><span><strong>응답 카드 저장</strong><small>실제 화면을 PNG로 저장</small></span><input id="captureScreenshots" type="checkbox" checked></label>
+        <label class="switch-row"><span><strong>자동 진행 안전장치</strong><small>반복 장면 일시정지</small></span><input id="loopGuardEnabled" type="checkbox" checked></label>
+        <label class="switch-row"><span><strong>직접 진행 안전장치</strong><small>선택 사항</small></span><input id="loopGuardInteractive" type="checkbox"></label>
+        <label>자동 진행 최대 이동
+          <input id="loopGuardMaxHops" type="number" min="0" value="20">
+          <small>0 = 무제한</small>
+        </label>
+        <label>같은 캐릭터 연속 횟수
+          <input id="loopGuardMaxSameSpeaker" type="number" min="0" value="3">
+        </label>
+        <label>같은 흐름 연속 횟수
+          <input id="loopGuardMaxSameRoute" type="number" min="0" value="6">
+        </label>
+        <button id="clearTranscript" class="wide-quiet-button" type="button">기록 비우기</button>
+        <button id="newMeeting" class="wide-quiet-button" type="button">새 프로젝트</button>
+      </div>
+    </details>
+
+    <details id="activityPanel" class="drawer activity-drawer">
+      <summary>세부 기록 <span id="activityCount" class="count-label">0</span></summary>
+      <div id="activityLog" class="activity-log"></div>
+    </details>
+  </main>
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>

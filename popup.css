@@ -1,0 +1,24 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg: #101116;
+  --panel: #1b1d26;
+  --line: #343846;
+  --text: #f4f6fb;
+  --muted: #9ba2b4;
+  --accent: #9b8cff;
+}
+
+* { box-sizing: border-box; }
+body { width: 300px; margin: 0; background: radial-gradient(circle at 50% -10%, rgba(155,140,255,.2), transparent 55%), var(--bg); color: var(--text); }
+button { font: inherit; }
+.popup-shell { display: grid; gap: 12px; padding: 22px; }
+.brand-mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px; background: linear-gradient(135deg, var(--accent), #7397ff); color: #11121a; font-size: 12px; font-weight: 900; }
+.brand-logo { width: 46px; height: 46px; display: block; object-fit: contain; border-radius: 13px; }
+.eyebrow { margin: 5px 0 0; color: var(--accent); font-size: 10px; font-weight: 850; letter-spacing: .12em; }
+h1 { margin: 0; font-size: 20px; letter-spacing: -.03em; }
+.description { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.open-button { display: flex; align-items: center; justify-content: space-between; min-height: 45px; padding: 0 14px; border: 0; border-radius: 12px; background: linear-gradient(135deg, var(--accent), #7b9dff); color: #11121a; font-size: 13px; font-weight: 850; cursor: pointer; }
+.open-button:hover { filter: brightness(1.08); }
+.open-button:disabled { opacity: .55; cursor: wait; }
+.popup-notice { min-height: 15px; margin: 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
